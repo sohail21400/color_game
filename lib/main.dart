@@ -1,5 +1,5 @@
 // todo
-//
+//the problem is not with the color
 
 import 'dart:math';
 
@@ -34,6 +34,7 @@ class HomePageState extends State<HomePage> {
   final bottomGap = 500.0;
   final rightGap = 20.0;
 
+  // this is a 2d list
   List totalColorList = [];
 
   int randomNumber256() {
@@ -64,9 +65,20 @@ class HomePageState extends State<HomePage> {
         ));
   }
 
-  Color pickAColor() {
+  Widget pickAColor() {
     Random random = Random();
-    return totalColorList[random.nextInt(9)];
+    List colorValue = totalColorList[random.nextInt(9)];
+    // return totalColorList[random.nextInt(9)];
+    String output = "(" +
+        colorValue[0].toString() +
+        ", " +
+        colorValue[1].toString() +
+        ", " +
+        colorValue[2].toString() +
+        ", " +
+        colorValue[3].toString() +
+        ")";
+    return Text(output, style: TextStyle(fontSize: 27),);
   }
 
   @override
@@ -76,11 +88,12 @@ class HomePageState extends State<HomePage> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
-          Container(
-            color: pickAColor(),
-            height: 20,
-            width: 20,
-          ),
+          pickAColor(),
+          // Container(
+          //   child: Text(pickAColor().toString(), style: TextStyle(fontSize: 18),),
+          //   height: 100,
+          //   width: 100,
+          // ),
           SizedBox(height: 100),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
