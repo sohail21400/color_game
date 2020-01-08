@@ -1,9 +1,8 @@
 // todo
-//the problem is not with the color
-
-import 'dart:math';
-
+//create a route to show the success page
 import 'package:flutter/material.dart';
+
+import './route_generator.dart';
 
 void main() => runApp(MyApp());
 
@@ -11,7 +10,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: HomePage(),
+      // home: HomePage(),
+      initialRoute: "/",
+      onGenerateRoute: RouteGenerator.generateRoute,
       title: "Color Guess",
       theme: ThemeData(
         primaryColor: Colors.teal,
@@ -23,107 +24,7 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class HomePage extends StatefulWidget {
-  @override
-  HomePageState createState() => HomePageState();
-}
 
-class HomePageState extends State<HomePage> {
-  // String randomColor;
-
-  final bottomGap = 500.0;
-  final rightGap = 20.0;
-
-  // this is a 2d list
-  List totalColorList = [];
-
-  int randomNumber256() {
-    Random random = Random();
-    return random.nextInt(256);
-  }
-
-  // this adds 9 random colors (TEXT AS LIST) to the totalColorList
-  void randomColorNumberGenerator() {
-    for (var i = 1; i <= 9; i++) {
-      totalColorList.add([
-        0xFF,
-        randomNumber256(),
-        randomNumber256(),
-        randomNumber256(),
-      ]);
-    }
-  }
-
-  Widget colorBlockGenerator(List colorNumbers) {
-    return Container(
-        height: 75,
-        width: 75,
-        decoration: BoxDecoration(
-          color: Color.fromARGB(colorNumbers[0], colorNumbers[1],
-              colorNumbers[2], colorNumbers[3]),
-          borderRadius: BorderRadius.circular(10),
-        ));
-  }
-
-  Widget pickAColor() {
-    Random random = Random();
-    List colorValue = totalColorList[random.nextInt(9)];
-    // return totalColorList[random.nextInt(9)];
-    String output = "(" +
-        colorValue[0].toString() +
-        ", " +
-        colorValue[1].toString() +
-        ", " +
-        colorValue[2].toString() +
-        ", " +
-        colorValue[3].toString() +
-        ")";
-    return Text(output, style: TextStyle(fontSize: 27),);
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    randomColorNumberGenerator();
-    return Scaffold(
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: <Widget>[
-          pickAColor(),
-          // Container(
-          //   child: Text(pickAColor().toString(), style: TextStyle(fontSize: 18),),
-          //   height: 100,
-          //   width: 100,
-          // ),
-          SizedBox(height: 100),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: <Widget>[
-              colorBlockGenerator(totalColorList[0]),
-              colorBlockGenerator(totalColorList[1]),
-              colorBlockGenerator(totalColorList[2]),
-            ],
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: <Widget>[
-              colorBlockGenerator(totalColorList[3]),
-              colorBlockGenerator(totalColorList[4]),
-              colorBlockGenerator(totalColorList[5]),
-            ],
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: <Widget>[
-              colorBlockGenerator(totalColorList[6]),
-              colorBlockGenerator(totalColorList[7]),
-              colorBlockGenerator(totalColorList[8]),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-}
 
 // body: Center(
 //   child: Container(
